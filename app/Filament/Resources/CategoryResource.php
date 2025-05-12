@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -23,7 +25,18 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+
+                TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255)
+                    ->disabled()
+                    ->dehydrated()
+                    ->unique(Category::class, 'slug', ignoreRecord: true),
             ]);
     }
 
