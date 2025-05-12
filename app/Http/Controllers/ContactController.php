@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail; // Bunu daha sonra yaradacağıq
 use App\Settings\GeneralSettings;
+use App\Models\ContactSubmission; // Yeni eklenen model
 
 class ContactController extends Controller
 {
@@ -44,10 +45,18 @@ class ContactController extends Controller
 
         try {
             // Mail::to($contactEmail)->send(new ContactFormMail($request->all())); // Daha sonra aktivləşdiriləcək
-            // Hələlik sadə bir uğur mesajı:
             
-            // Demo məqsədli olaraq loga yazırıq:
-            logger()->info('New contact form submission:', $request->all());
+            // Gelen veriyi veritabanına kaydet
+            ContactSubmission::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'subject' => $request->input('subject'),
+                'message' => $request->input('message'),
+            ]);
+
+            // Eski loglama kodunu kaldırabilir veya yoruma alabiliriz.
+            // logger()->info('New contact form submission:', $request->all());
 
             return redirect()->route('contact.index')->with('success', __('Your message has been sent successfully! We will get back to you soon.'));
 

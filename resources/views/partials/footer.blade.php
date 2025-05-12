@@ -85,6 +85,9 @@
         <div class="text-center text-sm border-t border-footer pt-8" style="color: var(--footer-text-color, #C6F6D5) !important;">
             <p>&copy; {{ date('Y') }} {{ $settings['site_name'] ?? __('Chaai') }}.{{ __(' All Rights Reserved.') }}</p>
         </div>
+        <div class="text-center mt-2 text-sm" style="color:rgb(34, 78, 26);">
+            # <a href="https://onuroid.site" target="_blank" style="color:rgb(34, 78, 26); text-decoration: underline;">Onur</a>
+        </div>
     </div>
 </footer>
 <!-- Footer Content End --> 

@@ -10,6 +10,21 @@
             <p class="text-center text-lg mb-12 md:mb-16 max-w-2xl mx-auto" style="color: var(--text-color)">{{ $settings['products_page_subtitle'] }}</p>
         @endif
 
+        @if(isset($categories) && $categories->count() > 0)
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <a href="{{ route('products.index') }}" class="px-4 py-2 rounded-full font-medium transition-colors"
+                   style="background-color: var(--button-secondary-bg-color); color: var(--button-secondary-text-color);">
+                    {{ __('Bütün Məhsullar') }}
+                </a>
+                @foreach($categories as $category)
+                    <a href="?category={{ $category->id }}" class="px-4 py-2 rounded-full font-medium transition-colors"
+                       style="background-color: var(--button-secondary-bg-color); color: var(--button-secondary-text-color);">
+                        {{ $category->name }}
+                    </a>
+                @endforeach
+            </div>
+        @endif
+
         <div id="toast-notification" class="fixed top-20 right-5 bg-green-500 text-white py-3 px-6 rounded-lg shadow-md text-sm z-50 hidden">
             <span id="toast-message"></span>
         </div>

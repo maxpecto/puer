@@ -22,7 +22,7 @@
             color: var(--contact-icon-color, var(--accent-color, #34D399));
         }
         .contact-section-bg {
-            background: var(--contact-section-bg, linear-gradient(to bottom right, var(--contact-bg-from, #f0fdf4), var(--contact-bg-via, #f7fee7), var(--contact-bg-to, #ecfdf5)));
+            background: var(--background-color);
         }
         .contact-title {
             color: var(--contact-title-color, var(--header-link-color, #15803d));
@@ -31,7 +31,7 @@
             color: var(--contact-subtitle-color, var(--secondary-text-color, #4b5563));
         }
         .contact-box-bg {
-            background: var(--contact-box-bg, #fff);
+            background: var(--surface-color);
         }
         .contact-box-shadow {
             box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1), 0 4px 6px -2px rgba(16, 185, 129, 0.05);
@@ -182,24 +182,24 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="block text-sm font-medium contact-label mb-1">{{ __('Full Name') }} <span class="text-red-500">*</span></label>
-                                <input type="text" id="name" name="name" value="{{ old('name') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" required>
+                                <input type="text" id="name" name="name" value="{{ old('name') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" required style="background-color: #2D3748; color: #E2E8F0; border-color: #4A5568;">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium contact-label mb-1">{{ __('Email Address') }} <span class="text-red-500">*</span></label>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" required>
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" required style="background-color: #2D3748; color: #E2E8F0; border-color: #4A5568;">
                             </div>
                         </div>
                         <div>
                             <label for="phone" class="block text-sm font-medium contact-label mb-1">{{ __('Phone Number') }} ({{ __('Optional') }})</label>
-                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors">
+                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" style="background-color: #2D3748; color: #E2E8F0; border-color: #4A5568;">
                         </div>
                         <div>
                             <label for="subject" class="block text-sm font-medium contact-label mb-1">{{ __('Subject') }}</label>
-                            <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors">
+                            <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" style="background-color: #2D3748; color: #E2E8F0; border-color: #4A5568;">
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium contact-label mb-1">{{ __('Message') }} <span class="text-red-500">*</span></label>
-                            <textarea id="message" name="message" rows="5" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" required>{{ old('message') }}</textarea>
+                            <textarea id="message" name="message" rows="5" class="mt-1 block w-full px-4 py-3 border contact-input rounded-md shadow-sm sm:text-sm transition-colors" required style="background-color: #2D3748; color: #E2E8F0; border-color: #4A5568;">{{ old('message') }}</textarea>
                         </div>
                         <div>
                             <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium contact-btn transition-all duration-150 ease-in-out">

@@ -62,6 +62,10 @@
             --button-primary-text-color: {{ $settings['button_primary_text_color'] ?? '#ffffff' }};
             --button-secondary-bg-color: {{ $settings['button_secondary_bg_color'] ?? '#4b5563' }}; /* text-gray-600 */
             --button-secondary-text-color: {{ $settings['button_secondary_text_color'] ?? '#ffffff' }};
+
+            --contact-bg-color: {{ $settings['background_color'] ?? '#f9fafb' }};
+            --contact-card-bg-color: {{ $settings['surface_color'] ?? '#ffffff' }};
+            --contact-card-border-color: {{ $settings['footer_border_color'] ?? '#e5e7eb' }};
         }
 
         /* Dinamik Renkler için Yardımcı Sınıflar */

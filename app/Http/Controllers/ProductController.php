@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -10,10 +11,15 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('is_active', true)->orderBy('created_at', 'desc')->paginate(12); // Sayfada 12 ürün göster
-        return view('products.index', compact('products'));
+        $categories = Category::all();
+        $query = Product::where('is_active', true);
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+        $products = $query->orderBy('created_at', 'desc')->paginate(12);
+        return view('products.index', compact('products', 'categories'));
     }
 
     /**

@@ -51,18 +51,6 @@
                     <span id="header-cart-count" class="ml-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full bg-cart-badge text-cart-badge" style="display: none;">0</span>
                 @endif
             </a>
-            @auth
-                <a href="{{ route('filament.admin.auth.logout') }}" 
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                   class="text-header-icon hover:text-header-icon-hover">
-                    <i class="fas fa-sign-out-alt"></i> {{ __('Yönetimden Çık') }}
-                </a>
-                <form id="logout-form" action="{{ route('filament.admin.auth.logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            @else
-                <a href="{{ route('filament.admin.auth.login') }}" class="text-header-icon hover:text-header-icon-hover"><i class="fas fa-user-circle"></i> {{ __('Giriş') }}</a>
-            @endauth
         </div>
 
         <!-- Mobile Menu Button -->
@@ -128,20 +116,6 @@
                         <span id="mobile-menu-cart-count" class="ml-2 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none rounded-full bg-cart-badge text-cart-badge" style="display: none;">0</span>
                     @endif
                 </a>
-            </li>
-            <li class="border-t mt-2 pt-2" :style="'border-color: var(--secondary-color)'">
-                @auth
-                    <a href="{{ route('filament.admin.auth.logout') }}" 
-                       onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();"
-                       class="block px-4 py-2 text-sm transition-colors text-mobile-menu-link hover:bg-mobile-menu-link-hover hover:text-mobile-menu-link-hover-text">
-                        <i class="fas fa-sign-out-alt mr-1"></i> {{ __('Yönetimden Çık') }}
-                    </a>
-                    <form id="logout-form-mobile" action="{{ route('filament.admin.auth.logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                @else
-                    <a href="{{ route('filament.admin.auth.login') }}" class="block px-4 py-2 text-sm transition-colors text-mobile-menu-link hover:bg-mobile-menu-link-hover hover:text-mobile-menu-link-hover-text"><i class="fas fa-user-circle mr-1"></i> {{ __('Giriş') }}</a>
-                @endauth
             </li>
             <li class="border-t mt-2 pt-2" :style="'border-color: var(--secondary-color)'">
                  <a href="#" class="block px-4 py-2 text-sm transition-colors text-mobile-menu-link hover:bg-mobile-menu-link-hover hover:text-mobile-menu-link-hover-text"><i class="fas fa-search mr-1"></i> Axtarış</a>
