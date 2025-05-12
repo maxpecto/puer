@@ -13,7 +13,8 @@
                 {{ $settings['hero_subtitle'] ?? __('Lorem ipsum sit dolar amet is consectur adispicing elit.') }}
             </p>
             <a href="{{ $settings['hero_button_link'] ?? '#shop' }}" 
-               class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors">
+               style="background: var(--button-primary-bg-color); color: var(--button-primary-text-color);"
+               class="font-semibold py-3 px-8 rounded-lg text-lg transition-colors">
                 {{ $settings['hero_button_text'] ?? __('Shop Now') }}
             </a>
         </div>
@@ -21,27 +22,29 @@
     <!-- Hero Section End -->
 
     <!-- Health Benefits Section Start -->
-    @include('partials.home.health-benefits') 
+    @include('partials.home.health-benefits', ['noPadding' => true])
     <!-- Health Benefits Section End -->
 
+    {{--
     <!-- Featured Products Section Start -->
     @include('partials.home.featured-products')
     <!-- Featured Products Section End -->
+    --}}
 
     <!-- Popular Offers Section Start -->
-    @include('partials.home.popular-offers')
+    @include('partials.home.popular-offers', ['noPadding' => true])
     <!-- Popular Offers Section End -->
 
     <!-- Discover The Magic of Tea Section Start -->
-    @include('partials.home.discover-magic')
+    @include('partials.home.discover-magic', ['noPadding' => true])
     <!-- Discover The Magic of Tea Section End -->
 
     <!-- Testimonials Section Start -->
-    @include('partials.home.testimonials')
+    @include('partials.home.testimonials', ['noPadding' => true])
     <!-- Testimonials Section End -->
 
     <!-- Instagram Gallery Section Start -->
-    @include('partials.home.instagram-gallery')
+    @include('partials.home.instagram-gallery', ['noPadding' => true])
     <!-- Instagram Gallery Section End -->
 
 @endsection

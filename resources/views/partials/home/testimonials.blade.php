@@ -1,5 +1,5 @@
 @if(isset($testimonials) && $testimonials->count() > 0)
-<section id="testimonials" class="py-16 bg-gray-50">
+<section id="testimonials">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold font-serif text-green-800 mb-4">

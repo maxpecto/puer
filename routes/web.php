@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -20,6 +21,7 @@ Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name
 
 // Contact Page Route
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact-us/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Offer Routes
 Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('offer.show');
@@ -32,6 +34,9 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 
 // Checkout Route
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+// About Us Page Route
+Route::get('/about-us', [PageController::class, 'about'])->name('about.index');
 
 // Fallback Route for Filament assets, if needed (usually handled by Filament itself)
 // Route::get('{path?}', function ($path) {

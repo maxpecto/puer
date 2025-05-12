@@ -1,5 +1,5 @@
 @if(isset($instagramImages) && $instagramImages->count() > 0)
-<section id="instagram-gallery" class="py-16 bg-white">
+<section id="instagram-gallery">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold font-serif text-green-800 mb-4">

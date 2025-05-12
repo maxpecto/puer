@@ -1,5 +1,5 @@
 @if(isset($healthBenefitsBlock) && $healthBenefitsBlock)
-<section id="health-benefits" class="py-16 bg-white">
+<section id="health-benefits">
     <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-2 gap-12 items-center">
             <div>

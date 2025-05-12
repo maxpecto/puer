@@ -40,8 +40,15 @@ class AppServiceProvider extends ServiceProvider
                                     ->first();
 
                 if ($settingsRecord && !empty($settingsRecord->payload)) {
-                    $dbSettings = json_decode($settingsRecord->payload, true) ?: [];
-                    $finalSettings = array_merge($defaultSettings, $dbSettings);
+                    $dbSettings = json_decode($settingsRecord->payload, true);
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        \Illuminate\Support\Facades\Log::error(
+                            '[AppServiceProvider] Failed to decode settings payload from DB. JSON Error: ' . json_last_error_msg(), 
+                            ['payload' => $settingsRecord->payload]
+                        );
+                        $dbSettings = []; // Xəta halında boş massivə qayıt
+                    }
+                    $finalSettings = array_merge($defaultSettings, $dbSettings ?: []);
                 }
             } catch (\Exception $e) {
                 // Log error if needed, fallback to default settings

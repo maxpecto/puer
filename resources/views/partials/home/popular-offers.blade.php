@@ -3,7 +3,7 @@
         // Şimdilik ilk popüler teklifi alıyoruz. Birden fazla göstermek için döngü kullanılabilir.
         $mainOffer = $popularOffers->first(); 
     @endphp
-    <section id="popular-offers" class="py-16 bg-green-50">
+    <section id="popular-offers">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold font-serif text-green-800 mb-4">

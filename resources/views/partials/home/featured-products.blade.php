@@ -1,6 +1,7 @@
 @if(isset($featuredProducts) && $featuredProducts->count() > 0)
 <section id="featured-products" class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
+        {{--
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold font-serif text-green-800 mb-4">
                 {{ $settings->featured_products_title ?? __('Unique Tea Blends') }}
@@ -9,6 +10,7 @@
                 {{ $settings->featured_products_subtitle ?? __('Discover our handpicked selection of the finest organic teas from around the world.') }}
             </p>
         </div>
+        --}}
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach($featuredProducts as $product)

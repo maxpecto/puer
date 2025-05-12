@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 11 May 2025, 16:45:50
+-- Üretim Zamanı: 12 May 2025, 09:00:34
 -- Sunucu sürümü: 10.11.11-MariaDB-0ubuntu0.24.04.2
 -- PHP Sürümü: 8.3.6
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Veritabanı: `puerh_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `about_pages`
+--
+
+CREATE TABLE `about_pages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Tablo döküm verisi `about_pages`
+--
+
+INSERT INTO `about_pages` (`id`, `title`, `content`, `created_at`, `updated_at`) VALUES
+(1, 'Haqqımızda', '<h3><strong>Haqqımızda</strong></h3><p><br>Biz innovativ həllər və yüksək keyfiyyətli xidmətlər təqdim edən bir komandayıq. Missiyamız müştərilərimizin ehtiyaclarını ən effektiv şəkildə qarşılamaq və onlara etibarlı, sürətli və peşəkarlıqla işləməkdir.</p><p>Fəaliyyət sahəmizdə yeni texnologiyalar və müasir üsullardan istifadə edərək daim inkişaf edirik. Komandamız sahənin ən bacarıqlı mütəxəssislərindən ibarətdir və hər bir işimizdə mükəmməlliyə çatmaq üçün səy göstəririk.</p><p>Müştəri məmnuniyyəti bizim üçün ən vacib prioritetdir. Buna görə də hər bir müştəri ilə fərdi yanaşma tərzimiz və diqqətimizlə fərqlənirik. Bizə etibar etdiyiniz üçün təşəkkür edirik!</p><p>Əgər bizimlə əməkdaşlıq etmək istəyirsinizsə, bizimlə əlaqə saxlamaqdan çəkinməyin. Sizə dəyər qatmaq üçün buradayıq!</p><p><br></p>', '2025-05-12 02:38:35', '2025-05-12 02:40:25');
 
 -- --------------------------------------------------------
 
@@ -226,7 +247,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2025_05_11_103943_create_menu_items_table', 1),
 (13, '2025_05_11_104609_add_is_admin_to_users_table', 1),
 (14, '2025_05_11_112251_add_is_active_to_products_table', 1),
-(15, '2025_05_11_153326_create_settings_table', 1);
+(15, '2025_05_11_153326_create_settings_table', 1),
+(16, '2025_05_12_062838_create_about_pages_table', 2);
 
 -- --------------------------------------------------------
 
@@ -340,7 +362,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `group`, `name`, `locked`, `payload`, `created_at`, `updated_at`) VALUES
-(1, 'general', 'general', 0, '{\"site_name\":\"Puerxana\",\"site_logo_header\":\"setting-images\\/01JV00WA6KR6MJ28WFQ08TPVNX.png\",\"site_logo_footer\":\"setting-images\\/01JV00WA6NNMA636MMVC0C1BYP.png\",\"footer_address\":null,\"footer_phone\":null,\"footer_email\":null,\"working_hours_weekdays\":null,\"working_hours_weekend\":null,\"facebook_url\":null,\"instagram_url\":null,\"twitter_url\":null,\"pinterest_url\":null,\"hero_title\":null,\"hero_subtitle\":null,\"hero_background_image\":\"setting-images\\/01JV00ZD9SPEBXWV2JCGGSRYBD.webp\",\"meta_title\":null,\"meta_description\":null,\"meta_keywords\":null,\"linkedin_url\":null,\"youtube_url\":null,\"contact_form_email\":null,\"google_maps_iframe\":null,\"google_analytics_id\":null,\"facebook_pixel_id\":null,\"maintenance_mode\":false,\"default_product_image\":null,\"primary_color\":\"#000000\",\"secondary_color\":\"#FFFFFF\",\"featured_products_title\":\"Unique Tea Blends\",\"featured_products_subtitle\":\"Discover our handpicked selection...\",\"shop_page_url\":\"\\/products\",\"view_all_products_button_text\":\"View All Teas\",\"popular_offers_title\":\"Special Offers Just For You\",\"popular_offers_subtitle\":\"Don\'t miss out on our exclusive deals...\",\"testimonials_title\":\"What Our Customers Say\",\"testimonials_subtitle\":\"Honest feedback from our valued tea lovers.\",\"instagram_gallery_title\":\"Follow Us on Instagram\",\"instagram_gallery_subtitle\":\"Get inspired by our latest posts...\",\"instagram_handle\":\"puerxana\",\"hero_button_link\":\"\\/products\",\"hero_button_text\":\"Shop Now\",\"whatsapp_number\":\"994508232535\"}', NULL, '2025-05-11 12:42:19');
+(1, 'general', 'general', 0, '{\"site_name\":\"Puerxana\",\"site_logo_header\":\"setting-images\\/01JV00WA6KR6MJ28WFQ08TPVNX.png\",\"site_logo_footer\":\"setting-images\\/01JV00WA6NNMA636MMVC0C1BYP.png\",\"footer_address\":\"BAKI \\u015e\\u018fH\\u018fR\\u0130, X\\u018fTA\\u0130 RAYONU, \\u0130LQAR Z\\u00dcLF\\u00dcQAROV K\\u00dc\\u00c7\\u018fS\\u0130, 2942A M\\u018fH\\u018fLL\\u018fS\\u0130, M\\u018fNZ\\u0130L 116\",\"footer_phone\":\"0508232535\",\"footer_email\":\"maxpecto@hotmail.com\",\"working_hours_weekdays\":\"B.e. - C.: 09:00 - 18:00\",\"working_hours_weekend\":\"B.e. - C.: 09:00 - 18:00\",\"facebook_url\":\"http:\\/\\/facebook.com\",\"instagram_url\":\"http:\\/\\/facebook.com\",\"twitter_url\":\"http:\\/\\/facebook.com\",\"pinterest_url\":\"http:\\/\\/facebook.com\",\"hero_title\":null,\"hero_subtitle\":null,\"hero_background_image\":\"setting-images\\/01JV00ZD9SPEBXWV2JCGGSRYBD.webp\",\"meta_title\":null,\"meta_description\":null,\"meta_keywords\":null,\"linkedin_url\":\"http:\\/\\/facebook.com\",\"youtube_url\":\"http:\\/\\/facebook.com\",\"contact_form_email\":null,\"google_maps_iframe\":null,\"google_analytics_id\":null,\"facebook_pixel_id\":null,\"maintenance_mode\":false,\"default_product_image\":null,\"primary_color\":\"#cc3636\",\"secondary_color\":\"#FFFFFF\",\"text_color\":\"#cc3636\",\"text_light_color\":\"#FFFFFF\",\"background_color\":\"#F8F9FA\",\"surface_color\":\"#FFFFFF\",\"accent_color\":\"#cc3636\",\"header_bg_color\":\"#FFFFFF\",\"header_text_color\":\"#cc3636\",\"footer_bg_color\":\"#ffffff\",\"footer_text_color\":\"#cc3636\",\"button_primary_bg_color\":\"#cc3636\",\"button_primary_text_color\":\"#FFFFFF\",\"button_secondary_bg_color\":\"#6C757D\",\"button_secondary_text_color\":\"#FFFFFF\",\"featured_products_title\":\"Unique Tea Blends\",\"featured_products_subtitle\":\"Discover our handpicked selection...\",\"shop_page_url\":\"\\/products\",\"view_all_products_button_text\":\"View All Teas\",\"popular_offers_title\":\"Special Offers Just For You\",\"popular_offers_subtitle\":\"Don\'t miss out on our exclusive deals...\",\"testimonials_title\":\"What Our Customers Say\",\"testimonials_subtitle\":\"Honest feedback from our valued tea lovers.\",\"instagram_gallery_title\":\"Follow Us on Instagram\",\"instagram_gallery_subtitle\":\"Get inspired by our latest posts...\",\"instagram_handle\":\"puerxana\",\"hero_button_link\":\"\\/products\",\"hero_button_text\":\"Shop Now\",\"whatsapp_number\":\"994508232535\",\"mapbox_api_key\":\"pk.eyJ1IjoibWF4cGVjdG8iLCJhIjoiY21hazJkcmMzMDZrbTJpc2RyejZ6Z203MiJ9.9qDZf69uYzjg28xAQrY40g\",\"mapbox_longitude\":\"49.844042\",\"mapbox_latitude\":\"40.379559\",\"mapbox_zoom_level\":10,\"mapbox_style_url\":\"mapbox:\\/\\/styles\\/mapbox\\/streets-v11\",\"header_link_color\":null,\"header_link_hover_color\":null,\"header_icon_color\":null,\"header_icon_hover_color\":null,\"mobile_menu_bg_color\":null,\"mobile_menu_link_color\":null,\"mobile_menu_link_hover_bg_color\":\"#F0FDF4\",\"mobile_menu_link_hover_text_color\":null,\"cart_badge_bg_color\":\"#DC2626\",\"cart_badge_text_color\":\"#FEF2F2\",\"mobile_menu_button_color\":\"#D1D5DB\",\"mobile_menu_button_hover_color\":\"#FFFFFF\",\"footer_secondary_text_color\":null,\"footer_link_hover_color\":null,\"footer_border_color\":null}', NULL, '2025-05-12 04:30:58');
 
 -- --------------------------------------------------------
 
@@ -386,6 +408,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `is_admin`, `pa
 --
 -- Dökümü yapılmış tablolar için indeksler
 --
+
+--
+-- Tablo için indeksler `about_pages`
+--
+ALTER TABLE `about_pages`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Tablo için indeksler `cache`
@@ -515,6 +543,12 @@ ALTER TABLE `users`
 --
 
 --
+-- Tablo için AUTO_INCREMENT değeri `about_pages`
+--
+ALTER TABLE `about_pages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Tablo için AUTO_INCREMENT değeri `categories`
 --
 ALTER TABLE `categories`
@@ -560,7 +594,7 @@ ALTER TABLE `menu_items`
 -- Tablo için AUTO_INCREMENT değeri `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `offers`

@@ -114,10 +114,45 @@ class ManageSiteSettings extends Page
                                         TextInput::make('contact_form_email')
                                             ->label('İletişim Formu Alıcı E-postası')
                                             ->email(),
-                                        Textarea::make('google_maps_iframe')
-                                            ->label('Google Haritalar Iframe Kodu')
-                                            ->rows(4),
                                     ])->columns(1),
+                                Section::make('Xəritə Ayarları')
+                                    ->description('Saytdakı xəritə üçün ayarlar. Mapbox və ya Google Maps istifadə edə bilərsiniz.')
+                                    ->schema([
+                                        TextInput::make('mapbox_api_key')
+                                            ->label('Mapbox API Açarınız')
+                                            ->password()
+                                            ->hint('Mapbox hesabınızdan əldə edin.'),
+                                        TextInput::make('mapbox_style_url')
+                                            ->label('Mapbox Stil URL')
+                                            ->placeholder('mapbox://styles/mapbox/streets-v11')
+                                            ->helperText('Boş buraxsanız defolt stil istifadə ediləcək.'),
+                                        TextInput::make('mapbox_latitude')
+                                            ->label('Məkan Enliyi (Latitude)')
+                                            ->id('mapbox_latitude_input')
+                                            ->numeric()
+                                            ->rules(['regex:/^[-]?(([0-8]?[0-9])(\\.[0-9]+)?|90(\\.0+)?)$/'])
+                                            ->placeholder('Məs: 40.3790'),
+                                        TextInput::make('mapbox_longitude')
+                                            ->label('Məkan Uzunluğu (Longitude)')
+                                            ->id('mapbox_longitude_input')
+                                            ->numeric()
+                                            ->rules(['regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))(\\.[0-9]+)?)|180(\\.0+)?)$/'])
+                                            ->placeholder('Məs: 49.8533'),
+                                        TextInput::make('mapbox_zoom_level')
+                                            ->label('Xəritə Böyütmə Səviyyəsi')
+                                            ->numeric()
+                                            ->minValue(1)
+                                            ->maxValue(22)
+                                            ->placeholder('Məs: 12'),
+                                        
+                                        \Filament\Forms\Components\View::make('filament.forms.components.mapbox-admin-picker')
+                                            ->columnSpanFull(),
+
+                                        Textarea::make('google_maps_iframe')
+                                            ->label('Google Haritalar Iframe Kodu (Alternativ)')
+                                            ->rows(3)
+                                            ->helperText('Mapbox yerinə Google Maps istifadə etmək istəyirsinizsə.'),
+                                    ])->columns(2),
                             ]),
                         Tabs\Tab::make('Sosyal Medya')
                             ->icon('heroicon-o-share')
@@ -163,6 +198,62 @@ class ManageSiteSettings extends Page
                                             ->label('Ana Renk (Primary Color)'),
                                         ColorPicker::make('secondary_color')
                                             ->label('İkincil Renk (Secondary Color)'),
+                                        ColorPicker::make('text_color')
+                                            ->label('Genel Metin Rengi'),
+                                        ColorPicker::make('text_light_color')
+                                            ->label('Açık Zemin Metin Rengi (Koyu Arkaplan İçin)'),
+                                        ColorPicker::make('background_color')
+                                            ->label('Genel Arkaplan Rengi'),
+                                        ColorPicker::make('surface_color')
+                                            ->label('Yüzey Rengi (Kart vb.)'),
+                                        ColorPicker::make('accent_color')
+                                            ->label('Vurgu Rengi (Linkler vb.)'),
+                                        ColorPicker::make('header_bg_color')
+                                            ->label('Header Arkaplan Rengi'),
+                                        ColorPicker::make('header_text_color')
+                                            ->label('Header Metin Rengi'),
+                                        ColorPicker::make('footer_bg_color')
+                                            ->label('Footer Arkaplan Rengi'),
+                                        ColorPicker::make('footer_text_color')
+                                            ->label('Footer Metin Rengi'),
+                                        ColorPicker::make('button_primary_bg_color')
+                                            ->label('Birincil Buton Arkaplanı'),
+                                        ColorPicker::make('button_primary_text_color')
+                                            ->label('Birincil Buton Metin Rengi'),
+                                        ColorPicker::make('button_secondary_bg_color')
+                                            ->label('İkincil Buton Arkaplanı'),
+                                        ColorPicker::make('button_secondary_text_color')
+                                            ->label('İkincil Buton Metin Rengi'),
+                                        ColorPicker::make('header_link_color')
+                                            ->label('Header Link Rengi'),
+                                        ColorPicker::make('header_link_hover_color')
+                                            ->label('Header Link Hover Rengi'),
+                                        ColorPicker::make('header_icon_color')
+                                            ->label('Header İkon Rengi'),
+                                        ColorPicker::make('header_icon_hover_color')
+                                            ->label('Header İkon Hover Rengi'),
+                                        ColorPicker::make('mobile_menu_bg_color')
+                                            ->label('Mobil Menü Arkaplan Rengi'),
+                                        ColorPicker::make('mobile_menu_link_color')
+                                            ->label('Mobil Menü Link Rengi'),
+                                        ColorPicker::make('mobile_menu_link_hover_bg_color')
+                                            ->label('Mobil Menü Link Hover Arkaplanı'),
+                                        ColorPicker::make('mobile_menu_link_hover_text_color')
+                                            ->label('Mobil Menü Link Hover Metin Rengi'),
+                                        ColorPicker::make('cart_badge_bg_color')
+                                            ->label('Sepet Bildirim Arkaplan Rengi'),
+                                        ColorPicker::make('cart_badge_text_color')
+                                            ->label('Sepet Bildirim Metin Rengi'),
+                                        ColorPicker::make('mobile_menu_button_color')
+                                            ->label('Mobil Menü Buton Rengi'),
+                                        ColorPicker::make('mobile_menu_button_hover_color')
+                                            ->label('Mobil Menü Buton Hover Rengi'),
+                                        ColorPicker::make('footer_secondary_text_color')
+                                            ->label('Footer İkincil Metin Rengi'),
+                                        ColorPicker::make('footer_link_hover_color')
+                                            ->label('Footer Link Hover Rengi'),
+                                        ColorPicker::make('footer_border_color')
+                                            ->label('Footer Çizgi Rengi'),
                                     ])->columns(2),
                             ]),
                     ])

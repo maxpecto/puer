@@ -1,5 +1,5 @@
 @if(isset($discoverMagicBlock) && $discoverMagicBlock)
-<section id="discover-magic" class="py-16 bg-white">
+<section id="discover-magic">
     <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-2 gap-12 items-center">
             <div class="order-2 md:order-1 {{ $discoverMagicBlock->image_path ? '' : 'md:col-span-2 text-center' }}"> 
