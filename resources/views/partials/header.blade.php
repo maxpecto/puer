@@ -67,18 +67,20 @@
             </a>
             <button @click="open = !open" 
                     @click.away="open = false"
-                    x-text="open ? 'Close' : 'Menu'"
-                    class="text-mobile-menu-button hover:text-mobile-menu-button-hover focus:outline-none">
+                    class="text-mobile-menu-button hover:text-mobile-menu-button-hover focus:outline-none flex items-center">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    <path x-show="open" style="display: none;" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
+                <span x-show="!open" class="ml-2">{{ __('Menu') }}</span>
+                <span x-show="open" style="display: none;" class="ml-2">{{ __('Close') }}</span>
             </button>
         </div>
     </div>
 
     <!-- Mobile Menu -->
     <div x-show="open" 
+         x-cloak
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 transform -translate-y-2"
          x-transition:enter-end="opacity-100 transform translate-y-0"

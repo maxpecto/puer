@@ -16,18 +16,21 @@
     <!-- Custom Fonts (Example: Google Fonts) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
 
+    {{-- <!-- Google Material Symbols --> --}}
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" /> --}}
 
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Roboto Slab', serif;
             background-color: var(--background-color, #F8F5F2);
             color: var(--text-color, #333);
         }
         .font-serif {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Roboto Slab', serif;
         }
+        [x-cloak] { display: none !important; } /* Added for Alpine.js x-cloak */
         :root {
             --primary-color: {{ $settings['primary_color'] ?? '#16a34a' }}; /* Defolt yeşil tonu */
             --secondary-color: {{ $settings['secondary_color'] ?? '#f1f5f9' }}; /* Defolt açık gri */
@@ -66,6 +69,19 @@
             --contact-bg-color: {{ $settings['background_color'] ?? '#f9fafb' }};
             --contact-card-bg-color: {{ $settings['surface_color'] ?? '#ffffff' }};
             --contact-card-border-color: {{ $settings['footer_border_color'] ?? '#e5e7eb' }};
+
+            /* Yeni Əlaqə Səhifəsi Rəngləri */
+            --contact-info-secondary-color: {{ $settings['contact_info_secondary_color'] ?? '#4b5563' }};
+            --contact-social-icon-color: {{ $settings['contact_social_icon_color'] ?? '#6b7280' }};
+            --contact-social-icon-hover-color: {{ $settings['contact_social_icon_hover_color'] ?? ($settings['accent_color'] ?? '#15803d') }};
+            --contact-label-color-dynamic: {{ $settings['contact_label_color'] ?? ($settings['text_color'] ?? '#374151') }};
+            --contact-title-color-dynamic: {{ $settings['contact_title_color'] ?? ($settings['header_link_color'] ?? '#15803d') }};
+
+            /* Yeni Əlaqə Səhifəsi - Mesaj Formu İnput Rəngləri */
+            --contact-form-input-bg: {{ $settings['contact_form_input_background_color'] ?? '#2D3748' }};
+            --contact-form-input-text: {{ $settings['contact_form_input_text_color'] ?? '#E2E8F0' }};
+            --contact-form-input-border: {{ $settings['contact_form_input_border_color'] ?? '#4A5568' }};
+            --contact-form-input-focus: {{ $settings['contact_form_input_focus_color'] ?? ($settings['primary_color'] ?? '#22c55e') }};
         }
 
         /* Dinamik Renkler için Yardımcı Sınıflar */

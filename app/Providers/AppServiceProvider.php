@@ -28,15 +28,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        // Load General Settings directly from DB
+        // Load General Settings directly from DB - ŞƏRH LƏĞV EDİLİR
         $defaultSettings = (new GeneralSettings())->getDefaults();
         $finalSettings = $defaultSettings; // Start with defaults
 
         if (Schema::hasTable('settings')) {
             try {
                 $settingsRecord = DB::table('settings')
-                                    ->where('group', 'general')
-                                    ->where('name', 'general') // Spatie'nin varsayılan ayar adı
+                                    ->where('group', 'general') // Spatie-nin varsayılan ayar qrupu
+                                    ->where('name', 'general') // Spatie-nin varsayılan ayar adı
                                     ->first();
 
                 if ($settingsRecord && !empty($settingsRecord->payload)) {
@@ -48,12 +48,13 @@ class AppServiceProvider extends ServiceProvider
                         );
                         $dbSettings = []; // Xəta halında boş massivə qayıt
                     }
-                    $finalSettings = array_merge($defaultSettings, $dbSettings ?: []);
+                    // Yalnız DB-də olan və GeneralSettings-də təyin edilmiş açarları defaultlarla birləşdir
+                    // Bilinməyən açarların $finalSettings-ə daxil olmasının qarşısını alır.
+                    $finalSettings = array_merge($defaultSettings, array_intersect_key($dbSettings ?: [], $defaultSettings));
                 }
             } catch (\Exception $e) {
-                // Log error if needed, fallback to default settings
-                // Log::error('Error loading settings from DB: ' . $e->getMessage());
-                // $finalSettings remains $defaultSettings
+                \Illuminate\Support\Facades\Log::error('[AppServiceProvider] Error loading settings from DB: ' . $e->getMessage());
+                // $finalSettings $defaultSettings olaraq qalır
             }
         }
         View::share('settings', $finalSettings);
