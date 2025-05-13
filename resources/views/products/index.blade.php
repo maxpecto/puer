@@ -30,7 +30,7 @@
         </div>
 
         @if($products->count() > 0)
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 @foreach($products as $product)
                     <div class="group rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl border flex flex-col" style="background-color: var(--surface-color); border-color: var(--secondary-color);">
                         <a href="{{ route('products.show', $product->slug) }}" class="block aspect-w-1 aspect-h-1 w-full overflow-hidden">

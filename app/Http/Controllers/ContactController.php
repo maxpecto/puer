@@ -8,13 +8,21 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail; // Bunu daha sonra yaradacağıq
 use App\Settings\GeneralSettings;
 use App\Models\ContactSubmission; // Yeni eklenen model
+use App\Models\Location; // Location modelini əlavə et
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(GeneralSettings $settings) // GeneralSettings-i metoda daxil et
     {
-        // dd(app(GeneralSettings::class)); // Bu sətri silirik və ya şərhə alırıq
-        return view('contact.index');
+        $locations = Location::where('is_active', true)->get();
+        $mapboxApiKey = $settings->mapbox_api_key ?? null;
+        $mapboxStyleUrl = $settings->mapbox_style_url ?? 'mapbox://styles/mapbox/streets-v12';
+
+        return view('contact.index', [
+            'locations' => $locations,
+            'mapboxApiKey' => $mapboxApiKey,
+            'mapboxStyleUrl' => $mapboxStyleUrl,
+        ]);
     }
 
     public function submit(Request $request, GeneralSettings $settings)

@@ -12,9 +12,10 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
-use Illuminate\Support\Facades\Artisan;
 use Filament\Notifications\Notification;
 use Filament\Actions\Action;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 class ManageSiteSettings extends Page
@@ -32,8 +33,11 @@ class ManageSiteSettings extends Page
         $settingsRecord = DB::table('settings')->where('group', 'general')->where('name', 'general')->first();
 
         if ($settingsRecord && !empty($settingsRecord->payload)) {
-            $dbSettings = json_decode($settingsRecord->payload, true) ?: [];
+            $loadedDbSettings = json_decode($settingsRecord->payload, true) ?: [];
+            // Yalnız GeneralSettings-də olan açarları DB-dən götür
+            $dbSettings = array_intersect_key($loadedDbSettings, $defaultSettings);
         }
+        // Varsayılanları DB-dən gələnlərlə birləşdir, DB-dəki dəyərlər üstünlük təşkil edir
         $this->data = array_merge($defaultSettings, $dbSettings);
         $this->form->fill($this->data);
     }
@@ -195,66 +199,129 @@ class ManageSiteSettings extends Page
                                 Section::make('Site Renkleri')
                                     ->schema([
                                         ColorPicker::make('primary_color')
-                                            ->label('Ana Renk (Primary Color)'),
+                                            ->label('Ana Renk (Primary Color)')
+                                            ->default('#E2725B'), // Terrakota
                                         ColorPicker::make('secondary_color')
-                                            ->label('İkincil Renk (Secondary Color)'),
+                                            ->label('İkincil Renk (Secondary Color)')
+                                            ->default('#8B4513'), // Qəhvəyi - SaddleBrown
                                         ColorPicker::make('text_color')
-                                            ->label('Genel Metin Rengi'),
+                                            ->label('Genel Metin Rengi')
+                                            ->default('#36454F'), // Tünd Boz - Charcoal
                                         ColorPicker::make('text_light_color')
-                                            ->label('Açık Zemin Metin Rengi (Koyu Arkaplan İçin)'),
+                                            ->label('Açık Zemin Metin Rengi (Koyu Arkaplan İçin)')
+                                            ->default('#FFFFFF'), // Ağ
                                         ColorPicker::make('background_color')
-                                            ->label('Genel Arkaplan Rengi'),
+                                            ->label('Genel Arkaplan Rengi')
+                                            ->default('#FFFDD0'), // Krem Rəngi
                                         ColorPicker::make('surface_color')
-                                            ->label('Yüzey Rengi (Kart vb.)'),
+                                            ->label('Yüzey Rengi (Kart vb.)')
+                                            ->default('#F5F5DC'), // Açıq Bej
                                         ColorPicker::make('accent_color')
-                                            ->label('Vurgu Rengi (Linkler vb.)'),
+                                            ->label('Vurgu Rengi (Linkler vb.)')
+                                            ->default('#FBCEB1'), // Ərik Rəngi / Açıq Şaftalı
                                         ColorPicker::make('header_bg_color')
-                                            ->label('Header Arkaplan Rengi'),
+                                            ->label('Header Arkaplan Rengi')
+                                            ->default('#F5F5DC'), // Açıq Bej
                                         ColorPicker::make('header_text_color')
-                                            ->label('Header Metin Rengi'),
+                                            ->label('Header Metin Rengi')
+                                            ->default('#36454F'), // Tünd Boz
                                         ColorPicker::make('footer_bg_color')
-                                            ->label('Footer Arkaplan Rengi'),
+                                            ->label('Footer Arkaplan Rengi')
+                                            ->default('#36454F'), // Tünd Boz
                                         ColorPicker::make('footer_text_color')
-                                            ->label('Footer Metin Rengi'),
+                                            ->label('Footer Metin Rengi')
+                                            ->default('#FFFDD0'), // Krem Rəngi
                                         ColorPicker::make('button_primary_bg_color')
-                                            ->label('Birincil Buton Arkaplanı'),
+                                            ->label('Birincil Buton Arkaplanı')
+                                            ->default('#E2725B'), // Terrakota
                                         ColorPicker::make('button_primary_text_color')
-                                            ->label('Birincil Buton Metin Rengi'),
+                                            ->label('Birincil Buton Metin Rengi')
+                                            ->default('#FFFDD0'), // Krem Rəngi
                                         ColorPicker::make('button_secondary_bg_color')
-                                            ->label('İkincil Buton Arkaplanı'),
+                                            ->label('İkincil Buton Arkaplanı')
+                                            ->default('#F5F5DC'), // Açıq Bej
                                         ColorPicker::make('button_secondary_text_color')
-                                            ->label('İkincil Buton Metin Rengi'),
+                                            ->label('İkincil Buton Metin Rengi')
+                                            ->default('#36454F'), // Tünd Boz
                                         ColorPicker::make('header_link_color')
-                                            ->label('Header Link Rengi'),
+                                            ->label('Header Link Rengi')
+                                            ->default('#E2725B'), // Terrakota
                                         ColorPicker::make('header_link_hover_color')
-                                            ->label('Header Link Hover Rengi'),
+                                            ->label('Header Link Hover Rengi')
+                                            ->default('#8B4513'), // Qəhvəyi
                                         ColorPicker::make('header_icon_color')
-                                            ->label('Header İkon Rengi'),
+                                            ->label('Header İkon Rengi')
+                                            ->default('#36454F'), // Tünd Boz
                                         ColorPicker::make('header_icon_hover_color')
-                                            ->label('Header İkon Hover Rengi'),
+                                            ->label('Header İkon Hover Rengi')
+                                            ->default('#E2725B'), // Terrakota
                                         ColorPicker::make('mobile_menu_bg_color')
-                                            ->label('Mobil Menü Arkaplan Rengi'),
+                                            ->label('Mobil Menü Arkaplan Rengi')
+                                            ->default('#F5F5DC'), // Açıq Bej
                                         ColorPicker::make('mobile_menu_link_color')
-                                            ->label('Mobil Menü Link Rengi'),
+                                            ->label('Mobil Menü Link Rengi')
+                                            ->default('#E2725B'), // Terrakota
                                         ColorPicker::make('mobile_menu_link_hover_bg_color')
-                                            ->label('Mobil Menü Link Hover Arkaplanı'),
+                                            ->label('Mobil Menü Link Hover Arkaplanı')
+                                            ->default('#FBCEB1'), // Ərik Rəngi
                                         ColorPicker::make('mobile_menu_link_hover_text_color')
-                                            ->label('Mobil Menü Link Hover Metin Rengi'),
+                                            ->label('Mobil Menü Link Hover Metin Rengi')
+                                            ->default('#36454F'), // Tünd Boz
                                         ColorPicker::make('cart_badge_bg_color')
-                                            ->label('Sepet Bildirim Arkaplan Rengi'),
+                                            ->label('Sepet Bildirim Arkaplan Rengi')
+                                            ->default('#E2725B'), // Terrakota
                                         ColorPicker::make('cart_badge_text_color')
-                                            ->label('Sepet Bildirim Metin Rengi'),
-                                        ColorPicker::make('mobile_menu_button_color')
-                                            ->label('Mobil Menü Buton Rengi'),
-                                        ColorPicker::make('mobile_menu_button_hover_color')
-                                            ->label('Mobil Menü Buton Hover Rengi'),
-                                        ColorPicker::make('footer_secondary_text_color')
-                                            ->label('Footer İkincil Metin Rengi'),
-                                        ColorPicker::make('footer_link_hover_color')
-                                            ->label('Footer Link Hover Rengi'),
-                                        ColorPicker::make('footer_border_color')
-                                            ->label('Footer Çizgi Rengi'),
+                                            ->label('Sepet Bildirim Metin Rengi')
+                                            ->default('#FFFDD0'), // Krem Rəngi
+                                        // Əlaqə səhifəsi üçün xüsusi rənglər
+                                        ColorPicker::make('contact_info_secondary_color')
+                                            ->label('Əlaqə Məlumatı İkinci Rəng')
+                                            ->default('#8B4513'), // Qəhvəyi
+                                        ColorPicker::make('contact_social_icon_color')
+                                            ->label('Əlaqə Sosial İkon Rəngi')
+                                            ->default('#8B4513'), // Qəhvəyi
+                                        ColorPicker::make('contact_social_icon_hover_color')
+                                            ->label('Əlaqə Sosial İkon Hover Rəngi')
+                                            ->default('#E2725B'), // Terrakota
+                                        ColorPicker::make('contact_form_input_background_color')
+                                            ->label('Əlaqə Formu İnput Arxaplan Rəngi')
+                                            ->default('#FFFDD0'), // Krem Rəngi
+                                        ColorPicker::make('contact_form_input_text_color')
+                                            ->label('Əlaqə Formu İnput Mətn Rəngi')
+                                            ->default('#36454F'), // Tünd Boz
+                                        ColorPicker::make('contact_form_input_border_color')
+                                            ->label('Əlaqə Formu İnput Sərhəd Rəngi')
+                                            ->default('#8B4513'), // Qəhvəyi
+                                        ColorPicker::make('contact_form_input_focus_color')
+                                            ->label('Əlaqə Formu İnput Fokus Rəngi')
+                                            ->default('#E2725B'), // Terrakota
                                     ])->columns(2),
+                                Section::make('Əlaqə Səhifəsi Rəngləri')
+                                    ->description('Əlaqə səhifəsindəki spesifik elementlərin rəngləri.')
+                                    ->schema([
+                                        ColorPicker::make('contact_info_secondary_color')
+                                            ->label('Əlaqə Detalları İkinci Mətn Rəngi'),
+                                        ColorPicker::make('contact_social_icon_color')
+                                            ->label('Sosial Media İkon Rəngi'),
+                                        ColorPicker::make('contact_social_icon_hover_color')
+                                            ->label('Sosial Media İkon Hover Rəngi'),
+                                        ColorPicker::make('contact_label_color')
+                                            ->label('Əlaqə Formu Label Rəngi'),
+                                        ColorPicker::make('contact_title_color')
+                                            ->label('Əlaqə Səhifəsi Başlıq Rəngi'),
+                                    ])->columns(3),
+                                Section::make('Mesaj Formu İnput Rəngləri')
+                                    ->description('Əlaqə səhifəsindəki mesaj formu inputlarının rəngləri.')
+                                    ->schema([
+                                        ColorPicker::make('contact_form_input_background_color')
+                                            ->label('İnput Arxaplan Rəngi'),
+                                        ColorPicker::make('contact_form_input_text_color')
+                                            ->label('İnput Mətn Rəngi'),
+                                        ColorPicker::make('contact_form_input_border_color')
+                                            ->label('İnput Çərçivə Rəngi (Normal)'),
+                                        ColorPicker::make('contact_form_input_focus_color')
+                                            ->label('İnput Fokus Rəngi (Çərçivə/Kölgə)'),
+                                    ])->columns(4),
                             ]),
                     ])
             ])->statePath('data')->columns(1);
@@ -272,9 +339,11 @@ class ManageSiteSettings extends Page
     public function save(): void
     {
         $formData = $this->form->getState();
-        $definedSettings = (new GeneralSettings())->getDefaults();
+        $defaultSettings = (new GeneralSettings())->getDefaults();
         $payloadToSave = [];
 
+        // Fayl yükləmələri üçün açarlar (əvvəlki kodunuzdan)
+        // Bu açarların GeneralSettings-də təyin olunduğundan əmin olun
         $fileUploadKeys = [
             'site_logo_header', 
             'site_logo_footer', 
@@ -282,31 +351,50 @@ class ManageSiteSettings extends Page
             'default_product_image'
         ];
 
-        foreach (array_keys($definedSettings) as $key) {
+        // Bütün mümkün ayar açarlarını GeneralSettings-dən al
+        foreach (array_keys($defaultSettings) as $key) {
             if (array_key_exists($key, $formData)) {
                 $value = $formData[$key];
+                // Fayl yükləmələrində, əgər dəyər massivdirsə (yeni fayl seçilməyibsə və ya silinibse)
+                // null saxla, əks halda fayl yolunu saxla.
+                // Bu məntiq fayl yükləmə komponentinizin qaytardığı dəyərə görə dəyişə bilər.
                 if (in_array($key, $fileUploadKeys)) {
-                    $payloadToSave[$key] = is_array($value) ? null : $value;
+                    // Əgər $value massivdirsə (Filament tərəfindən fayl silindikdə və ya dəyişmədikdə qaytarıla bilər)
+                    // və ya boş bir sətirdirsə, null olaraq təyin et. Əks halda dəyəri saxla.
+                    // Filament-in fayl yükləmələrini necə idarə etdiyinə dəqiq baxmaq lazımdır.
+                    // Adətən, yeni fayl yükləndikdə string (yol) qaytarır, silindikdə null və ya boş string.
+                    // Burada sadə bir yoxlama edirik:
+                    $payloadToSave[$key] = (is_array($value) || $value === '') ? null : $value;
                 } else {
                     $payloadToSave[$key] = $value;
                 }
             } else {
-                $payloadToSave[$key] = $definedSettings[$key]; 
+                // Əgər formadan dəyər gəlmirsə (məsələn, toggle false olduqda), 
+                // varsayılan dəyəri istifadə et (məsələn, maintenance_mode üçün false).
+                // Toggle üçün, Filament false dəyərini göndərməyə bilər, ona görə bu yoxlama vacibdir.
+                 $payloadToSave[$key] = $defaultSettings[$key]; 
             }
         }
-        
-        if (!array_key_exists('maintenance_mode', $payloadToSave)) {
-            $payloadToSave['maintenance_mode'] = false;
-        }
+
+        // Xüsusi Toggle üçün yoxlama (məsələn, maintenance_mode)
+        // Əgər formda `maintenance_mode` açarı yoxdursa (checkbox işarələnməyibsə),
+        // false olaraq təyin et. Əks halda formadan gələn dəyəri götür.
+        // Yuxarıdakı foreach dövrü bunu artıq həll etməlidir, amma ehtiyat üçün saxlayıram.
+        // if (!array_key_exists('maintenance_mode', $payloadToSave) || $payloadToSave['maintenance_mode'] === null) {
+        //     $payloadToSave['maintenance_mode'] = false;
+        // }
+        // Əmin olmaq üçün: toggle false olduqda $formData-da olmaya bilər.
+        $payloadToSave['maintenance_mode'] = $formData['maintenance_mode'] ?? false;
+
 
         $jsonPayload = json_encode($payloadToSave);
 
         try {
             DB::table('settings')->updateOrInsert(
-                ['group' => 'general', 'name' => 'general'],
+                ['group' => 'general', 'name' => 'general'], // Cədvəl strukturunuz Spatie-yə uyğundursa
                 [
                     'payload' => $jsonPayload,
-                    'locked' => false,
+                    'locked' => false, // Spatie-dən qalan sütun
                     'updated_at' => now()
                 ]
             );
@@ -319,7 +407,7 @@ class ManageSiteSettings extends Page
                 ->send();
 
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('[ManageSiteSettings] DB Save Exception', [
+            Log::error('[ManageSiteSettings] DB Save Exception', [
                 'message' => $e->getMessage(), 
                 'trace' => $e->getTraceAsString(),
                 'payload_attempted' => $payloadToSave

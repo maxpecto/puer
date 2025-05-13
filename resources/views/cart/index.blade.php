@@ -23,7 +23,7 @@
         @php $totalPrice = 0; @endphp
 
         @if(count($cart) > 0)
-            <div class="shadow-lg rounded-lg overflow-x-auto" style="background-color: var(--surface-color);">
+            <div class="hidden md:block shadow-lg rounded-lg overflow-x-auto" style="background-color: var(--surface-color);">
                 <table class="min-w-full divide-y" style="background-color: var(--surface-color);">
                     <thead style="background-color: var(--secondary-color);">
                         <tr>
@@ -81,8 +81,52 @@
                 </table>
             </div>
 
-            <div class="mt-10 flex flex-col items-end md:items-end">
-                <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6" style="background-color: var(--surface-color);">
+            <div class="md:hidden space-y-4">
+                @foreach($cart as $id => $details)
+                    {{-- Individual mobile card for each product --}}
+                    <div class="p-4 rounded-lg shadow-md" style="background-color: var(--surface-color); border: 1px solid var(--secondary-color);">
+                        <div class="flex items-start space-x-3">
+                            {{-- Image --}}
+                            <div class="flex-shrink-0">
+                                @if($details['image_path'])
+                                    <img class="h-16 w-16 sm:h-20 sm:w-20 rounded-md object-cover" src="{{ Storage::url($details['image_path']) }}" alt="{{ $details['name'] }}">
+                                @else
+                                    <img class="h-16 w-16 sm:h-20 sm:w-20 rounded-md object-cover" src="https://via.placeholder.com/150?text={{ urlencode($details['name']) }}" alt="{{ $details['name'] }}">
+                                @endif
+                            </div>
+                            {{-- Product Info & Actions --}}
+                            <div class="flex-grow min-w-0">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-sm sm:text-md font-semibold truncate pr-2" style="color: var(--text-color);">{{ $details['name'] }}</h3>
+                                    <form action="{{ route('cart.remove', $id) }}" method="POST" class="flex-shrink-0">
+                                        @csrf
+                                        <button type="submit" class="p-1 -mt-1 -mr-1 rounded text-gray-400 hover:text-red-500 transition-colors" title="{{ __('Remove') }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                                <p class="text-xs sm:text-sm mt-1" style="color: var(--accent-color);">{{ __('Price:') }} ₼{{ number_format($details['price'], 2) }}</p>
+                                
+                                <div class="mt-2 flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <button type="button" class="quantity-btn minus inline-flex items-center justify-center p-1 h-8 w-8 text-sm rounded-l border border-r-0" style="background-color: var(--secondary-color); color: var(--text-color);">-</button>
+                                        <input type="number" name="quantity" min="1" value="{{ $details['quantity'] }}" class="h-8 w-10 text-center border-t border-b rounded-none shadow-sm focus:border-green-500 focus:ring-green-500 text-xs sm:text-sm" style="color: var(--text-color); background-color: var(--surface-color); border-color: var(--secondary-color);" data-product-id="{{ $id }}">
+                                        <button type="button" class="quantity-btn plus inline-flex items-center justify-center p-1 h-8 w-8 text-sm rounded-r border border-l-0" style="background-color: var(--secondary-color); color: var(--text-color);">+</button>
+                                    </div>
+                                    <div class="text-xs sm:text-sm font-medium subtotal-cell" style="color: var(--text-color);">
+                                        {{ __('Subtotal:') }} ₼<span class="item-subtotal-amount">{{ number_format($details['price'] * $details['quantity'], 2) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="mt-10 flex flex-col items-center md:items-end">
+                <div class="w-full md:max-w-md bg-white shadow-lg rounded-lg p-6" style="background-color: var(--surface-color);">
                     <div class="flex justify-between text-lg font-semibold" style="color: var(--text-color);">
                         <span>{{ __('Total:') }}</span>
                         <span class="cart-total-amount">₼{{ number_format($totalPrice, 2) }}</span>
